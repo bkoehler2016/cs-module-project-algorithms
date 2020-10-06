@@ -2,27 +2,27 @@
 Input: an integer
 Returns: an integer
 '''
-def eating_cookies(n, cache):
+def eating_cookies(n, cache=None):
     # Your code here
     #base case
     if n < 0:
         return 0
-    #moving closer to the base case
     if n == 0:
-        cache[0] = 1
         return 1
-    
+    #moving closer to the base case
+    if cache is None:
+        cache = {}
+    elif isinstance(cache, list):
+        cache = dict.fromkeys(cache)
     if n in cache:
         return cache[n]
+    one_cookie = eating_cookies(n - 1, cache)
+    two_cookies = eating_cookies(n - 2, cache)
+    three_cookies = eating_cookies(n - 3, cache)
     
-    result_n_1 = eating_cookies(n-1, cache)
-    result_n_2 = eating_cookies(n-2, cache)
-    result_n_3 = eating_cookies(n-3, cache)
-    result_at_n = result_n_1 + result_n_2 + result_n_3
-
-    cache[n] = result_at_n
-
-    return result_at_n
+    cache[n] = one_cookie + two_cookies + three_cookies
+    
+    return cache[n]
     
 
 if __name__ == "__main__":
