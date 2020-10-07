@@ -9,7 +9,7 @@ def eating_cookies(n, cache=None):
         return 0
     if n == 0:
         return 1
-    #moving closer to the base case
+    #moving closer to the base case and setting up cache
     if cache is None:
         cache = {}
     elif isinstance(cache, list):
